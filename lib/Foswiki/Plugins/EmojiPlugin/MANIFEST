@@ -7,6 +7,7 @@ lib/Foswiki/Plugins/EmojiPlugin/MANIFEST 0644
 lib/Foswiki/Plugins/EmojiPlugin/Emoji.pm 0644
 lib/Foswiki/Plugins/EmojiPlugin/Mapping.pm 0644
 lib/Foswiki/Plugins/EmojiPlugin.pm 0644
+pub/System/EmojiPlugin/screenshot.png 0644
 pub/System/EmojiPlugin/aliases.json 0644
 pub/System/EmojiPlugin/bundle.js 0644
 pub/System/EmojiPlugin/bundle.js.gz 0644

@@ -22,7 +22,7 @@ use Foswiki::Func ();
 use Foswiki::Plugins::EmojiPlugin::Core ();
 use Foswiki::Plugins::JQueryPlugin ();
 
-our $VERSION = '1.00';
+our $VERSION = '1.01';
 our $RELEASE = '%$RELEASE%';
 our $SHORTDESCRIPTION = 'Standard Emoji Support';
 our $LICENSECODE = '%$LICENSECODE%';
