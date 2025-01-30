@@ -1,0 +1,21 @@
+{
+  "name": "EmojiPlugin",
+  "version": "1.0.0",
+  "description": "Standard Emoji Icons",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/foswiki/EmojiPlugin.git"
+  },
+  "dependencies": {
+    "emoji-datasource-apple": "^6.0.1",
+    "emoji-datasource-facebook": "^6.0.1",
+    "emoji-datasource-google": "^6.0.1",
+    "emoji-datasource-twitter": "^6.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael Daum",
+  "license": "ISC"
+}

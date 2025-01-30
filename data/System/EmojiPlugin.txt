@@ -1,0 +1,215 @@
+%META:TOPICINFO{author="micha" comment="reprev" date="1738253743" format="1.1" reprev="4" version="5"}%
+---+!! %TOPIC%
+%FORMFIELD{"Description"}%
+
+%TOC%
+
+---++ Usage
+
+This plugin replaces SmiliesPlugin with a more complete approach. It ships with 4 sets of emoji icons
+that you can choose from. These are
+
+   * apple
+   * facebook
+   * google and
+   * twitter
+
+Note that you will need to disable <nop>SmiliesPlugin to use <nop>Emotion.
+
+Shortcuts such as :) are then replaced with the appropriate image it is mapped to for the given icon set.
+An emoji can be rendered using the syntax
+
+<verbatim>:icon_name:</verbatim>
+
+as listed below. In addition the following common aliases are available:
+
+| *Shortcut* | *Image* |
+| =:)= =:-)= | :slightly_smiling_face: |
+| =;)= =;-)= | :wink: |
+| =:(= =:-(= | :slightly_frowning_face: |
+| =:D= =:-D= | :grin: |
+| =8-)= | :disguised_face: |
+| =:o= =:-o= | :astonished: |
+| =;(= ;-(= | :cry: |
+| =:&vert; :-&vert; :&#x49; :-I= | :neutral_face: |
+| =(:I= | :seat: |
+| =:*= =:-*= | :kissing: |
+| =:&#x50; :-&#x50; :&#x50; :-&#x50;= | :stuck_out_tongue_winking_eye: |
+| =:^)= | :lying_face: |
+| =I-)= | :sneezing_face: |
+| =I-(= | :face_with_rolling_eyes: |
+| =]-)= =]:-)= =>:)= =>:-)= =>:]= =>:-]= | :rage: |
+| =I()= =I-()= | :yawning_face: |
+| =:&= =:-&= | :face_vomiting: |
+| =:@= =:-@= | :angry: |
+| =:S= =:-S= =:s= =:-s= | :confused: |
+| =8-I= =m-I= | :nerd_face: |
+| =:X= =:-X= | :zipper_mouth_face: |
+| =>:)= =>:-)= | :japanese_goblin: |
+| =:?= =:-?= | :thinking_face: |
+| =:yes:= | :+1: |
+| =:no:= | :-1: |
+
+---++ Configuration
+
+The default icon set is [[%SCRIPTURLPATH{"configure}%][configured in Foswiki]] but can be overridden
+using the =EMOJI_ICONSET= preference setting anywhere you like.
+
+---++ List of emoticons
+<b>Search</b>: <input type="text" size="30" class="filterIcons" />
+<!--
+   * Set EMOJI_ICONSET = %URLPARAM{"iconset"}%
+-->
+%EMOJIES{
+   category="Smileys & Emotion"
+   header="<h3>$category</h3><div class='container'>"
+   format="<div class='entry'>$image $id</div>"
+   footer="</div>"
+}%
+%EMOJIES{
+   category="People & Body"
+   header="<h3>$category</h3><div class='container'>"
+   format="<div class='entry'>$image $id</div>"
+   footer="</div>"
+}%
+%EMOJIES{
+   category="Animals & Nature"
+   header="<h3>$category</h3><div class='container'>"
+   format="<div class='entry'>$image $id</div>"
+   footer="</div>"
+}%
+%EMOJIES{
+   category="Food & Drink"
+   header="<h3>$category</h3><div class='container'>"
+   format="<div class='entry'>$image $id</div>"
+   footer="</div>"
+}%
+%EMOJIES{
+   category="Activities"
+   header="<h3>$category</h3><div class='container'>"
+   format="<div class='entry'>$image $id</div>"
+   footer="</div>"
+}%
+%EMOJIES{
+   category="Travel & Places"
+   header="<h3>$category</h3><div class='container'>"
+   format="<div class='entry'>$image $id</div>"
+   footer="</div>"
+}%
+%EMOJIES{
+   category="Objects"
+   header="<h3>$category</h3><div class='container'>"
+   format="<div class='entry'>$image $id</div>"
+   footer="</div>"
+}%
+%EMOJIES{
+   category="Symbols"
+   header="<h3>$category</h3><div class='container'>"
+   format="<div class='entry'>$image $id</div>"
+   footer="</div>"
+}%
+%EMOJIES{
+   category="Flags"
+   header="<h3>$category</h3><div class='container'>"
+   format="<div class='entry'>$image $id</div>"
+   footer="</div>"
+}%
+%EMOJIES{
+   category="Skin Tones"
+   header="<h3>$category</h3><div class='container'>"
+   format="<div class='entry'>$image $id</div>"
+   footer="</div>"
+}%
+
+%ADDTOZONE{"script" id="EMOJI::JS" requires="JQUERYPLUGIN" text="<script src='%PUBURLPATH%/%WEB%/%TOPIC%/script.js'></script>"}%
+%ADDTOZONE{"head" id="EMOJI::CSS" text="<link rel='stylesheet' href='%PUBURLPATH%/%WEB%/%TOPIC%/style.css' media='all'>"}%
+%STARTATTACH{"style.css" hidecontent="on" hide="on"}%
+.container {
+   display:flex;
+   flex-wrap:wrap;
+}
+.container .entry {
+   width: calc(33% - 2em);
+   margin:0 1em 1em 0;
+   overflow:hidden;
+   white-space:nowrap;
+}
+.container .entry img {
+   font-size:32px;
+   margin:0 1em 0 0;
+}
+%ENDATTACH%
+%STARTATTACH{"script.js" hidecontent="on" hide="on"}%
+"use strict";
+jQuery(function($) {
+   var timer;
+
+   function filterContainer(val) {
+      var regex = new RegExp(val, "i");
+
+      $(".container").each(function() {
+         var $container = $(this);
+
+         //console.log("filterContainer(",val,")");
+         if (val === '') {
+            $container.children(".entry").show();
+         } else {
+            $container.children(".entry").hide().each(function() {
+               var $this = $(this),
+                   text = $this.text() + " " + $this.find("img").attr("title");
+
+               if (regex.test(text)) {
+                  $this.show();
+               }
+            });
+         }
+
+         if ($container.children(".entry:visible").length == 0) {
+            $container.prev("h3").hide();
+         } else {
+            $container.prev("h3").show();
+         }
+      });
+   }
+   $(".filterIcons:not(.filterIconsInited").livequery(function() {
+      var $input = $(this);
+      $input.addClass("filterIconsInited");
+      $input.on("keyup", function() {
+         if (typeof(timer) !== 'undefined') {
+            //console.log("clearing timeout");
+            window.clearTimeout(timer);
+         }
+         timer = window.setTimeout(function() {
+            var val = $input.val();
+            filterContainer(val);
+            timer = undefined;
+         }, 100);
+         //console.log("new timer",timer);
+      });
+   });
+});
+%ENDATTACH%
+
+---++ Installation Instructions
+%$INSTALL_INSTRUCTIONS%
+
+---++ Dependencies
+%$DEPENDENCIES%
+
+---++ Change History
+
+%TABLE{columnwidths="7em" tablewidth="100%"}%
+|  30 Jan 2025 | initial release |
+
+%META:FORM{name="PackageForm"}%
+%META:FIELD{name="Author" title="Author" value="Michael Daum"}%
+%META:FIELD{name="Version" title="Version" value="%25$VERSION%25"}%
+%META:FIELD{name="Release" title="Release" value="%25$RELEASE%25"}%
+%META:FIELD{name="Description" title="Description" value="%25$SHORTDESCRIPTION%25"}%
+%META:FIELD{name="Repository" title="Repository" value="https://github.com/foswiki/%25$ROOTMODULE%25"}%
+%META:FIELD{name="Copyright" title="Copyright" value="2021-2025, Michael Daum, All Rights Reserved"}%
+%META:FIELD{name="License" title="License" value="GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]])"}%
+%META:FIELD{name="Home" title="Home" value="http://foswiki.org/Extensions/%25$ROOTMODULE%25"}%
+%META:FIELD{name="Support" title="Support" value="http://foswiki.org/Support/%25$ROOTMODULE%25"}%
+%META:FILEATTACHMENT{name="style.css" attachment="style.css" attr="h" comment="Generated by <nop>AttachContentPlugin" date="1617978686" path="style.css" size="231" user="micha" version="1"}%
+%META:FILEATTACHMENT{name="script.js" attachment="script.js" attr="h" comment="Generated by <nop>AttachContentPlugin" date="1617978753" path="script.js" size="1394" user="micha" version="3"}%

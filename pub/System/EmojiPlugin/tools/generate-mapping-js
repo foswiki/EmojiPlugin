@@ -1,0 +1,124 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use open ':std', ':encoding(UTF-8)';
+
+use JSON;
+
+my $definitionFile = "./emoji_pretty.json";
+my $aliasesFile = "./aliases.json";
+
+sub readFile {
+  my $name = shift;
+
+  #print STDERR "readFile($name)\n";
+
+  my $data = '';
+  my $IN_FILE;
+
+  open($IN_FILE, '<', $name) || return;
+  binmode $IN_FILE, ':encoding(utf-8)';
+  
+  local $/ = undef;
+  $data = <$IN_FILE>;
+  close($IN_FILE);
+  $data = '' unless $data;
+
+  return decode_json($data);
+}
+
+my @emojis = ();
+my @aliases = ();
+my $release = `date +%F`;
+$release =~ s/^\s+//;
+$release =~ s/\s+$//;
+
+print <<HERE;
+/* WARNING: This file is generated automatically
+
+  Plugin for Foswiki - The Free and Open Source Wiki, https://foswiki.org/
+ 
+  EmojiPlugin is Copyright (C) 2021-2025 Michael Daum http://michaeldaumconsulting.com
+ 
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License
+  as published by the Free Software Foundation; either version 2
+  of the License, or (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details, published at
+  http://www.gnu.org/copyleft/gpl.html
+*/
+
+"use strict";
+
+Emojis._Database = {
+HERE
+
+my $numEmojis = 0;
+foreach my $emoji (sort {$a->{sort_order} <=> $b->{sort_order}} @{readFile($definitionFile)}) {
+
+  my $id = $emoji->{short_name};
+  my $name = lc($emoji->{name});
+  push @emojis, $id;
+
+  print "  '$id' : {
+    'id': '$id',
+    'order': $emoji->{sort_order},
+    'name': '$name',
+    'image': '$emoji->{image}',
+    'apple': $emoji->{has_img_apple},
+    'google': $emoji->{has_img_google},
+    'twitter': $emoji->{has_img_twitter},
+    'facebook': $emoji->{has_img_facebook},
+    'category': '$emoji->{category}',
+    'isAlias': false
+  },\n";
+  
+  foreach my $alt (@{$emoji->{short_names}}) {
+    next if $alt eq $id;
+    push @emojis, $alt;
+
+    print "  '$alt' : {
+      'id': '$alt',
+      'order': $emoji->{sort_order},
+      'name': '$name',
+      'image': '$emoji->{image}',
+      'apple': $emoji->{has_img_apple},
+      'google': $emoji->{has_img_google},
+      'twitter': $emoji->{has_img_twitter},
+      'facebook': $emoji->{has_img_facebook},
+      'category': '$emoji->{category}',
+      'isAlias': true
+    },\n";
+  }
+
+  $numEmojis++;
+}
+print "};\n";
+
+foreach my $shortcut (@{readFile($aliasesFile)}) {
+  foreach my $pattern (@{$shortcut->{pattern}}) {
+    push @aliases, {
+      pattern => $pattern,
+      id => $shortcut->{id}
+    };
+  }
+}
+
+print "Emojis._Aliases = {\n";
+
+foreach my $alias (@aliases) {
+  print "  '$alias->{pattern}': '$alias->{id}',\n";
+}
+
+print "};\n";
+
+my $emojiPattern = '(?<=[\s<>|])(?::(?:'.join('|', map {quotemeta($_)} @emojis).'):)(?=[\s<>|])';
+my $aliasPattern = '(?<=[\s<>|])(?:'.join('|', map {quotemeta($_->{pattern})} @aliases).')(?=[\s<>|])';
+
+print "Emojis.emojiRegExp = /$emojiPattern/;\n";
+print "Emojis.aliasRegExp = /$aliasPattern/;\n";

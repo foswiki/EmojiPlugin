@@ -1,0 +1,14 @@
+.container {
+   display:flex;
+   flex-wrap:wrap;
+}
+.container .entry {
+   width: calc(33% - 2em);
+   margin:0 1em 1em 0;
+   overflow:hidden;
+   white-space:nowrap;
+}
+.container .entry img {
+   font-size:32px;
+   margin:0 1em 0 0;
+}

@@ -1,0 +1,180 @@
+[
+  {
+    "pattern": [
+      ":)",
+      ":-)"
+    ],
+    "id": "slightly_smiling_face"
+  },
+  {
+    "pattern": [
+      ";)",
+      ";-)"
+    ],
+    "id": "wink"
+  },
+  {
+    "pattern": [
+      ":(",
+      ":-("
+    ],
+    "id": "slightly_frowning_face"
+  },
+  {
+    "pattern": [
+      ":D",
+      ":-D"
+    ],
+    "id": "grin"
+  },
+  {
+    "pattern": [
+      "8-)"
+    ],
+    "id": "disguised_face"
+  },
+  {
+    "pattern": [
+      ":o",
+      ":-o"
+    ],
+    "id": "astonished"
+  },
+  {
+    "pattern": [
+      ";(",
+      ";-("
+    ],
+    "id": "cry"
+  },
+  {
+    "pattern": [
+      ":|",
+      ":-|",
+      ":I",
+      ":-I"
+    ],
+    "id": "neutral_face"
+  },
+  {
+    "pattern": [
+      "(:I"
+    ],
+    "id": "sweat"
+  },
+  {
+    "pattern": [
+      ":*",
+      ":-*"
+    ],
+    "id": "kissing"
+  },
+  {
+    "pattern": [
+      ":P",
+      ":-P",
+      ":p",
+      ":-p"
+    ],
+    "id": "stuck_out_tongue_winking_eye"
+  },
+  {
+    "pattern": [
+      ":^)"
+    ],
+    "id": "lying_face"
+  },
+  {
+    "pattern": [
+      "I-)"
+    ],
+    "id": "sneezing_face"
+  },
+  {
+    "pattern": [
+      "I-("
+    ],
+    "id": "face_with_rolling_eyes"
+  },
+  {
+    "pattern": [
+      "]-)",
+      "]:-)",
+      ">:)",
+      ">:-)",
+      ">:]",
+      ">:-]"
+    ],
+    "id": "rage"
+  },
+  {
+    "pattern": [
+      "I()",
+      "I-()"
+    ],
+    "id": "yawning_face"
+  },
+  {
+    "pattern": [
+      ":&",
+      ":-&"
+    ],
+    "id": "face_vomiting"
+  },
+  {
+    "pattern": [
+      ":@",
+      ":-@"
+    ],
+    "id": "angry"
+  },
+  {
+    "pattern": [
+      ":S",
+      ":-S",
+      ":s",
+      ":-s"
+    ],
+    "id": "confused"
+  },
+  {
+    "pattern": [
+      "8-I",
+      "m-I"
+    ],
+    "id": "nerd_face"
+  },
+  {
+    "pattern": [
+      ":X",
+      ":-X"
+    ],
+    "id": "zipper_mouth_face"
+  },
+  {
+    "pattern": [
+      ">:)",
+      ">:-)"
+    ],
+    "id": "japanese_goblin"
+  },
+  {
+    "pattern": [
+      ":?",
+      ":-?"
+    ],
+    "id": "thinking_face"
+  },
+  {
+    "pattern": [
+      ":yes:"
+    ],
+    "id": "+1"
+  },
+  {
+    "pattern": [
+      ":no:"
+    ],
+    "id": "-1"
+  }
+]
