@@ -5,6 +5,7 @@ use warnings;
 use open ':std', ':encoding(UTF-8)';
 
 use JSON;
+use Text::Unidecode;
 
 my $definitionFile = "./emoji_pretty.json";
 my $aliasesFile = "./aliases.json";
@@ -62,7 +63,8 @@ my $numEmojis = 0;
 foreach my $emoji (sort {$a->{sort_order} <=> $b->{sort_order}} @{readFile($definitionFile)}) {
 
   my $id = $emoji->{short_name};
-  my $name = lc($emoji->{name});
+  my $name = unidecode(lc($emoji->{name}));
+  $name =~ s/'/\\'/g;
   push @emojis, $id;
 
   print "  '$id' : {

@@ -2686,7 +2686,7 @@ Emojis._Database = {
   'flag-ax' : {
     'id': 'flag-ax',
     'order': 24,
-    'name': 'åland islands flag',
+    'name': 'aland islands flag',
     'image': '1f1e6-1f1fd.png',
     'apple': 1,
     'google': 1,
@@ -3934,7 +3934,7 @@ Emojis._Database = {
   'flag-bl' : {
     'id': 'flag-bl',
     'order': 35,
-    'name': 'st. barthélemy flag',
+    'name': 'st. barthelemy flag',
     'image': '1f1e7-1f1f1.png',
     'apple': 1,
     'google': 1,
@@ -4678,7 +4678,7 @@ Emojis._Database = {
   'helmet_with_white_cross' : {
     'id': 'helmet_with_white_cross',
     'order': 41,
-    'name': 'rescue worker’s helmet',
+    'name': 'rescue worker\'s helmet',
     'image': '26d1-fe0f.png',
     'apple': 1,
     'google': 1,
@@ -5890,7 +5890,7 @@ Emojis._Database = {
   'flag-ci' : {
     'id': 'flag-ci',
     'order': 53,
-    'name': 'côte d’ivoire flag',
+    'name': 'cote d\'ivoire flag',
     'image': '1f1e8-1f1ee.png',
     'apple': 1,
     'google': 1,
@@ -7006,7 +7006,7 @@ Emojis._Database = {
   'flag-cw' : {
     'id': 'flag-cw',
     'order': 63,
-    'name': 'curaçao flag',
+    'name': 'curacao flag',
     'image': '1f1e8-1f1fc.png',
     'apple': 1,
     'google': 1,
@@ -18814,7 +18814,7 @@ Emojis._Database = {
   'flag-re' : {
     'id': 'flag-re',
     'order': 202,
-    'name': 'réunion flag',
+    'name': 'reunion flag',
     'image': '1f1f7-1f1ea.png',
     'apple': 1,
     'google': 1,
@@ -19978,7 +19978,7 @@ Emojis._Database = {
   'flag-st' : {
     'id': 'flag-st',
     'order': 223,
-    'name': 'são tomé & príncipe flag',
+    'name': 'sao tome & principe flag',
     'image': '1f1f8-1f1f9.png',
     'apple': 1,
     'google': 1,

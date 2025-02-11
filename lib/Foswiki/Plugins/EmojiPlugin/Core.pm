@@ -126,13 +126,16 @@ sub formatEmoji {
 
   my $image = '<img class=\'emoji\' src=\'$url\' alt=\'$name\' title=\'$name\' loading=\'lazy\' />';
   my $url = $this->getEmojiUrl($entry, $iconSet) // '';
+  my $name = _entityEncode($entry->{name});
+
+print STDERR "name=$name\n";
 
   $format //= '$image';
 
   $format =~ s/\$image\b/$image/g;
   $format =~ s/\$id\b/$id/g;
   $format =~ s/\$order\b/$entry->{order}/g;
-  $format =~ s/\$name\b/$entry->{name}/g;
+  $format =~ s/\$name\b/$name/g;
   $format =~ s/\$image\b/$entry->{image}/g;
   $format =~ s/\$category\b/$entry->{category}/g;
   $format =~ s/\$url\b/$url/g;
@@ -205,6 +208,14 @@ sub _validateIconSet {
 
   return $iconSet if defined($iconSet) && $iconSet =~ /^(google|apple|twitter|facebook)$/;
   return;
+}
+
+sub _entityEncode {
+  my $text = shift;
+
+  $text =~ s/([[\x01-\x09\x0b\x0c\x0e-\x1f"%&'*<=>\\@[_\|])/'&#'.ord($1).';'/ge;
+
+  return $text;
 }
 
 1;
