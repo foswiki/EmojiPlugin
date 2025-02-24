@@ -128,8 +128,6 @@ sub formatEmoji {
   my $url = $this->getEmojiUrl($entry, $iconSet) // '';
   my $name = _entityEncode($entry->{name});
 
-print STDERR "name=$name\n";
-
   $format //= '$image';
 
   $format =~ s/\$image\b/$image/g;
