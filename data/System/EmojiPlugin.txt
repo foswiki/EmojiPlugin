@@ -211,6 +211,7 @@ jQuery(function($) {
 ---++ Change History
 
 %TABLE{columnwidths="7em" tablewidth="100%"}%
+|  18 Nov 2025 | removed error prone :* alias |
 |  24 Feb 2025 | removed debug message |
 |  07 Feb 2025 | unidecoding all icon names |
 |  30 Jan 2025 | initial release |

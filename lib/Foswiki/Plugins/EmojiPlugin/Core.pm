@@ -29,7 +29,7 @@ sub new {
 
   my $this = bless({@_}, $class);
 
-  $this->{iconSet} = _validateIconSet($this->{iconSet}) // ($Foswiki::cfg{EmojiPlugin}{DefaultIconSet} // 'facebook');
+  $this->{iconSet} = _validateIconSet($this->{iconSet}) // _validateIconSet($Foswiki::cfg{EmojiPlugin}{DefaultIconSet}) // 'facebook';
 
   return $this;
 }
@@ -107,10 +107,21 @@ sub EMOJIES {
   return $result;
 }
 
+sub addAssets {
+  my $this = shift;
+
+  return if $this->{_doneAssets};
+  $this->{_doneAssets} = 1;
+
+  Foswiki::Plugins::JQueryPlugin::createPlugin("Emoji");
+}
+
 sub formatEmoji {
   my ($this, $id, $format, $iconSet) = @_;
 
   return "" unless $id;
+
+  $this->addAssets();
 
   $iconSet ||= $this->{iconSet};
 

@@ -39,7 +39,8 @@ sub new {
       homepage => 'http://foswiki.org/Extensions/EmojiPlugin',
       puburl => '%PUBURLPATH%/%SYSTEMWEB%/EmojiPlugin',
       documentation => '%SYSTEMWEB%.EmojiPlugin',
-      javascript => ['bundle.js'],
+      javascript => ['build/pkg.js'],
+      css => ['build/pkg.css'],
       dependencies => ['JQUERYPLUGIN::FOSWIKI'],
     ),
     $class

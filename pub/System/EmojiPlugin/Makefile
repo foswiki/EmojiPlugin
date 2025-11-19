@@ -1,39 +1,47 @@
 FOSWIKI_ROOT?=~/foswiki/core
-SCRIPT_DIR=$(FOSWIKI_ROOT)/pub/System/EmojiPlugin
+SCRIPT_DIR=$(FOSWIKI_ROOT)/pub/System/EmojiPlugin/tools
 MAPPING_PM=$(FOSWIKI_ROOT)/lib/Foswiki/Plugins/EmojiPlugin/Mapping.pm
 JSMIN=$(shell which terser 2>/dev/null || which uglifyjs) -m -c --
+CSSMIN=$(shell which csso 2>/dev/null || echo cat) --no-restructure
 GZIP=gzip
 CAT=cat
+TARGET=$(MAPPING_PM) emoji_pretty.json build/pkg.js build/pkg.css build/mapping.js
 
-all: $(MAPPING_PM) emoji_pretty.json bundle.js.gz mapping.js.gz
+all: $(TARGET) $(TARGET:.js=.js.gz) $(TARGET:.css=.css.gz) 
 
 .PHONY: all images clean mapping
 
 images: img/google img/facebook img/apple img/twitter
 
 clean: 
-	rm -f $(TARGET) $(MAPPING_PM) mapping.uncompressed.js *gz
+	rm -f build/* $(MAPPING_PM) 
 
-mapping: $(MAPPING_PM) mapping.uncompressed.js
+mapping: $(MAPPING_PM) build/mapping.uncompressed.js
 
 node_modules:
 	npm install 
 
-mapping.uncompressed.js: aliases.json emoji_pretty.json tools/generate-mapping-js
-	@echo "generating $@"; ./tools/generate-mapping-js > $@
+build/mapping.uncompressed.js: aliases.json emoji_pretty.json tools/generate-mapping-js
+	@echo "generating $@"; $(SCRIPT_DIR)/generate-mapping-js > $@
 
-bundle.uncompressed.js: emojis.uncompressed.js mapping.uncompressed.js 
+build/pkg.uncompressed.js: src/emojis.js build/mapping.uncompressed.js 
 	@echo "generating $@"; $(CAT) $^ > $@
 
-%.js: %.uncompressed.js
+build/pkg.css: src/emojis.css
+	@echo minifying $@ from $<; $(CSSMIN) $< > $@; \
+
+build/%.js: build/%.uncompressed.js
 	@echo minifying $@ from $<; $(JSMIN) $< > $@; \
 
-%.gz: %
+build/%.css: build/%.uncompressed.css
+	@echo minifying $@ from $<; $(CSSMIN) $< > $@; \
+
+build/%.gz: build/%
 	@echo zipping $< to $@
 	@$(GZIP) -9 -c $< > $@
 
 $(MAPPING_PM): aliases.json emoji_pretty.json tools/generate-mapping-pm
-	@echo "generating Mapping.pm"; ./tools/generate-mapping-pm > $@
+	@echo "generating Mapping.pm"; $(SCRIPT_DIR)/generate-mapping-pm > $@
 
 ifneq (,$(wildcard node_modules))
 
@@ -59,7 +67,6 @@ img/twitter: node_modules
 
 emoji_pretty.json: node_modules node_modules/emoji-datasource-google/emoji_pretty.json
 	@echo "fetching emoji definition"; \
-	test -d $@ || mkdir -p $@; \
 	cp node_modules/emoji-datasource-google/emoji_pretty.json $@
 
 endif
