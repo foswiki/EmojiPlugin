@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, https://foswiki.org/
 #
-# EmojiPlugin is Copyright (C) 2021-2025 Michael Daum http://michaeldaumconsulting.com
+# EmojiPlugin is Copyright (C) 2021-2026 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -22,7 +22,7 @@ use Foswiki::Func ();
 use Foswiki::Plugins::EmojiPlugin::Core ();
 use Foswiki::Plugins::JQueryPlugin ();
 
-our $VERSION = '1.20';
+our $VERSION = '1.30';
 our $RELEASE = '%$RELEASE%';
 our $SHORTDESCRIPTION = 'Standard Emoji Support';
 our $LICENSECODE = '%$LICENSECODE%';

@@ -2,7 +2,8 @@ FOSWIKI_ROOT?=~/foswiki/core
 SCRIPT_DIR=$(FOSWIKI_ROOT)/pub/System/EmojiPlugin/tools
 MAPPING_PM=$(FOSWIKI_ROOT)/lib/Foswiki/Plugins/EmojiPlugin/Mapping.pm
 JSMIN=$(shell which terser 2>/dev/null || which uglifyjs) -m -c --
-CSSMIN=$(shell which csso 2>/dev/null || echo cat) --no-restructure
+CSSMIN=$(shell which csso 2>/dev/null || echo cat) 
+CSSMIN_ARGS=--no-restructure
 GZIP=gzip
 CAT=cat
 TARGET=$(MAPPING_PM) emoji_pretty.json build/pkg.js build/pkg.css build/mapping.js
@@ -28,16 +29,16 @@ build/pkg.uncompressed.js: src/emojis.js build/mapping.uncompressed.js
 	@echo "generating $@"; $(CAT) $^ > $@
 
 build/pkg.css: src/emojis.css
-	@echo minifying $@ from $<; $(CSSMIN) $< > $@; \
+	@echo "minifying $@ from $<"; $(CSSMIN) $< $(CSSMIN_ARGS) > $@
 
 build/%.js: build/%.uncompressed.js
-	@echo minifying $@ from $<; $(JSMIN) $< > $@; \
+	@echo "minifying $@ from $<"; $(JSMIN) $< > $@
 
 build/%.css: build/%.uncompressed.css
-	@echo minifying $@ from $<; $(CSSMIN) $< > $@; \
+	@echo "minifying $@ from $<"; $(CSSMIN) $< $(CSSMIN_ARGS) > $@
 
 build/%.gz: build/%
-	@echo zipping $< to $@
+	@echo "zipping $< to $@"
 	@$(GZIP) -9 -c $< > $@
 
 $(MAPPING_PM): aliases.json emoji_pretty.json tools/generate-mapping-pm

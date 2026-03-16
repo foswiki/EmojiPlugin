@@ -1,6 +1,6 @@
 /* Plugin for Foswiki - The Free and Open Source Wiki, https://foswiki.org/
  
-  EmojiPlugin is Copyright (C) 2021-2025 Michael Daum http://michaeldaumconsulting.com
+  EmojiPlugin is Copyright (C) 2021-2026 Michael Daum http://michaeldaumconsulting.com
  
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License
@@ -19,7 +19,7 @@
 (function() {
 
 var defaults = {
-  iconSet: "twitter",
+  iconSet: "apple",
   limit: 5,
   skip: 0,
   category: null
@@ -76,17 +76,14 @@ var Emojis = {
     }
   },
 
-  "getBasePath": function() {
-    if (!Emojis._basePath) {
-      Emojis._basePath  = foswiki.getPubUrlPath("System", "EmojiPlugin", "img") + "/twitter";
-    }
-    return Emojis._basePath;
+  "getBasePath": function(params) {
+    params = { ...defaults, ...params};
+    return foswiki.getPubUrlPath("System", "EmojiPlugin", "img") + "/" + params.iconSet;
   },
 
-  "getUrl": function(term) {
+  "getUrl": function(term, params) {
     var  entry = Emojis.get(term.trim());
-
-    return entry ? Emojis.getBasePath() + "/" + entry.image: null;
+    return entry ? Emojis.getBasePath(params) + "/" + entry.image: null;
   }
 };
 
@@ -99,7 +96,7 @@ window.Emojis = Emojis;
 
   Plugin for Foswiki - The Free and Open Source Wiki, https://foswiki.org/
  
-  EmojiPlugin is Copyright (C) 2021-2025 Michael Daum http://michaeldaumconsulting.com
+  EmojiPlugin is Copyright (C) 2021-2026 Michael Daum http://michaeldaumconsulting.com
  
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License

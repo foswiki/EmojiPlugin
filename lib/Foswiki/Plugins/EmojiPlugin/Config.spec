@@ -6,6 +6,6 @@
 $Foswiki::cfg{EmojiPlugin}{SmiliesPluginWarning} = 1;
 
 # **SELECT apple,facebook,google,twitter**
-$Foswiki::cfg{EmojiPlugin}{DefaultIconSet} = "facebook";
+$Foswiki::cfg{EmojiPlugin}{DefaultIconSet} = "apple";
 
 1;
